@@ -54,6 +54,15 @@ code {
 .text-bold{
   font-weight: bold !important;
 }
+.text-one-line {
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  white-space: unset;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

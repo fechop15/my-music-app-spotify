@@ -13,12 +13,12 @@ function IndexPage(props) {
     return (
         <Box>
             <Box>
-                <p>Bienvenido {currentUser.email}</p>
-                {user &&
-                <Zoom in={true} style={{ transitionDelay:'500ms' }}>
-                    <p>Nombre: {user.display_name}</p>
-                </Zoom>
-                }
+                {/*<p>Bienvenido {currentUser.email}</p>*/}
+                {/*{user &&*/}
+                {/*<Zoom in={true} style={{ transitionDelay:'500ms' }}>*/}
+                {/*    <p>Nombre: {user.display_name}</p>*/}
+                {/*</Zoom>*/}
+                {/*}*/}
             </Box>
             <PlayList/>
 

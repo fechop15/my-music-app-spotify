@@ -1,11 +1,6 @@
 import React from 'react';
 import {
     Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
     Grid,
     Skeleton,
     styled,
@@ -14,6 +9,7 @@ import {
 } from "@mui/material";
 import {useSelector} from "react-redux";
 import {getPlayList} from "../reducers/PlayListReducer";
+import Track from "./Track";
 const Img = styled('img')({
     margin: 'auto',
     display: 'block',
@@ -37,7 +33,7 @@ function PlayList(props) {
                             </Grid>
                             <Grid item xs={8} sx={{margin:"auto"}}>
                                 <Box>
-                                    <Typography className="uppercase text-bold">
+                                    <Typography variant="h7" className="uppercase text-bold">
                                         {playList.type}
                                     </Typography>
                                     <Typography variant="h2" className="text-bold">
@@ -46,14 +42,16 @@ function PlayList(props) {
                                     <Typography>
                                         {playList.owner.display_name}
                                     </Typography>
-                                    <Typography>
+                                    <Typography variant="caption" color="text.secondary">
                                         {playList.tracks.total} canciones, {playList.followers.total} Seguidores
                                     </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
                                 <Box sx={{width: "100%"}}>
-                                    <Img src={playList.images[0].url} alt={playList.name}/>
+                                    {playList.tracks.items.map((value, index) =>(
+                                        <Track song={value} index={index+1} key={index}></Track>
+                                    ))}
                                 </Box>
                             </Grid>
                         </Grid>

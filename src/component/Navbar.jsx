@@ -140,7 +140,7 @@ const Navbar = (props) => {
                 sx={{
                     flexGrow: 1,
                     p: 3,
-                    height: '100vh',
+                    height: '100%',
                     bgcolor: '#ededed',
                     width: {sm: `calc(100% - ${drawerWidth}px)`}
                 }}

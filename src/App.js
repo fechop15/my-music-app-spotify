@@ -30,6 +30,17 @@ export default function Types() {
                 localStorage.removeItem('TOKEN_SPOTIFY')
             }
         );
+
+        spotify.getMySavedTracks().then(
+            function (data) {
+                console.log("getMySavedTracks")
+                console.log(data)
+                console.log("end getMySavedTracks")
+            },function (err) {
+                console.log("error token");
+                localStorage.removeItem('TOKEN_SPOTIFY')
+            }
+        );
         spotify.getPlaylist('37i9dQZF1DX0BcQWzuB7ZO').then(playList=>dispatch(SET_PLAYLIST(playList)))
         dispatch(SET_TOKEN(__token))
         console.log("token => "+__token);
