@@ -1,12 +1,24 @@
 import React, {useState} from 'react';
-import {Alert, Box, Button, Card, CircularProgress, Container, Grid, TextField, Typography} from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    Card,
+    CardMedia,
+    CircularProgress,
+    Container,
+    Grid, InputAdornment,
+    TextField,
+    Typography
+} from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
 import {useAuth} from "../contexts/AuthContext";
+import {AccountCircle, Lock} from "@mui/icons-material";
 
 function RegisterPage(props) {
     console.log("registro")
 
-    const {register} = useAuth();
+    const {signup} = useAuth();
     const history = useHistory();
 
     const [error, setError] = useState('');
@@ -43,7 +55,7 @@ function RegisterPage(props) {
         if (!validate(email, password)) {
             setLoading(true);
             try {
-                await register(email, password);
+                await signup(email, password);
                 setLoading(false);
                 history.push('/');
             } catch (error) {
@@ -55,8 +67,10 @@ function RegisterPage(props) {
         }
     }
     return (
-        <Box className="registerPage" sx={{
-            bgcolor: '#123123'
+        <Box className="loginPage" sx={{
+            backgroundImage: "url(./1366_2000.jpg)",
+            backgroundRepeat:"no-repeat" ,
+            backgroundSize: "cover",
         }}>
             <Container component="main" maxWidth="xs">
                 <Box
@@ -68,58 +82,81 @@ function RegisterPage(props) {
                     }}
                 >
                     <Card component="form" onSubmit={handleSubmit} noValidate sx={{p: 3, m: "auto"}}>
-                        <Typography variant="h4" component="div" textAlign={"center"}>
+                        <CardMedia sx={{width:"50px",m:"auto"}}
+                                   component="img"
+                                   image="./spotify.png"
+                                   alt="spotify"
+                        />
+                        <Typography variant="h6" component="div" textAlign={"center"}>
                             My Music App
                         </Typography>
                         <TextField
                             error={errorEmail.state}
                             helperText={errorEmail.message}
-                            variant="standard"
                             margin="normal"
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Correo Electronico"
                             name="email"
                             autoComplete="email"
                             autoFocus
                             onChange={handleEmail}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <AccountCircle />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                         <TextField
                             error={errorPassword.state}
                             helperText={errorPassword.message}
-                            variant="standard"
                             margin="normal"
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="current-password"
                             onChange={handlePassword}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Lock />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                         <Box
                             sx={{mt: 3, mb: 2}}
                         >
-                            {loading?
-                                <Box sx={{textAlign:"center"}}><CircularProgress color="inherit"/></Box>
+                            {loading ?
+                                <Box sx={{textAlign: "center"}}><CircularProgress color="inherit"/></Box>
                                 :
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                >
-                                    Register
-                                </Button>
+                                <Box>
+                                    <Button
+                                        color={"success"}
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                    >
+                                        Registrarse
+                                    </Button>
+                                </Box>
                             }
-                            {error && <Box sx={{textAlign:"center",mt:1}}><Alert variant="filled" severity="error">{error}</Alert></Box>}
+                            {error && <Box sx={{textAlign: "center", mt: 1}}><Alert variant="filled"
+                                                                                    severity="error">{error}</Alert></Box>}
                         </Box>
 
                         <Grid container>
-                            <Grid item>
-                                <Link to="/login">
-                                    {"Do you have an account? sing in"}
+                            <Grid item  m={"auto"}>
+                                <Link to="/login" >
+                                    <Typography color={"green"}>
+                                        {"Ingresar"}
+                                    </Typography>
                                 </Link>
                             </Grid>
                         </Grid>

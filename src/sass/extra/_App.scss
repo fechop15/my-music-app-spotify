@@ -42,11 +42,13 @@ code {
   color: #61dafb;
 }
 .active {
-  background-color: #0fa753!important;
-  color:#fff!important;
+  background-color: rgba(0, 171, 85, 0.08)!important;
+  color:rgb(0, 171, 85) !important;
+  border-right: 3px solid rgb(0, 171, 85)!important;
 }
+
 .active svg{
-  color:#fff!important;
+  color:rgb(0, 171, 85) !important;
 }
 .uppercase{
   text-transform: uppercase;

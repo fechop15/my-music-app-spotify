@@ -3,15 +3,16 @@ import {
     Alert,
     Box,
     Button,
-    Card,
+    Card, CardMedia,
     CircularProgress,
     Container,
-    Grid,
+    Grid, InputAdornment,
     TextField,
     Typography
 } from "@mui/material";
 import {Link, useHistory} from "react-router-dom";
 import {useAuth} from "../contexts/AuthContext";
+import {AccountCircle,Lock} from "@mui/icons-material";
 
 function LoginPage() {
     console.log("login")
@@ -60,7 +61,9 @@ function LoginPage() {
     }
     return (
         <Box className="loginPage" sx={{
-            bgcolor: '#123123'
+            backgroundImage: "url(./1366_2000.jpg)",
+            backgroundRepeat:"no-repeat" ,
+            backgroundSize: "cover",
         }}>
             <Container component="main" maxWidth="xs">
                 <Box
@@ -72,36 +75,53 @@ function LoginPage() {
                     }}
                 >
                     <Card component="form" onSubmit={handleSubmit} noValidate sx={{p: 3, m: "auto"}}>
+                        <CardMedia sx={{width:"50px",m:"auto"}}
+                                   component="img"
+                                   image="./spotify.png"
+                                   alt="spotify"
+                        />
                         <Typography variant="h6" component="div" textAlign={"center"}>
                             My Music App
                         </Typography>
                         <TextField
                             error={errorEmail.state}
                             helperText={errorEmail.message}
-                            variant="standard"
                             margin="normal"
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
+                            label="Correo Electronico"
                             name="email"
                             autoComplete="email"
                             autoFocus
                             onChange={handleEmail}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <AccountCircle />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                         <TextField
                             error={errorPassword.state}
                             helperText={errorPassword.message}
-                            variant="standard"
                             margin="normal"
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="Contraseña"
                             type="password"
                             id="password"
                             autoComplete="current-password"
                             onChange={handlePassword}
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Lock />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                         <Box
                             sx={{mt: 3, mb: 2}}
@@ -111,11 +131,12 @@ function LoginPage() {
                                 :
                                 <Box>
                                     <Button
+                                        color={"success"}
                                         type="submit"
                                         fullWidth
                                         variant="contained"
                                     >
-                                        Sign In
+                                        Ingresar
                                     </Button>
                                 </Box>
                             }
@@ -124,9 +145,11 @@ function LoginPage() {
                         </Box>
 
                         <Grid container>
-                            <Grid item>
-                                <Link to="/register">
-                                    {"Don't have an account? Sign Up"}
+                            <Grid item  m={"auto"}>
+                                <Link to="/register" >
+                                    <Typography color={"green"}>
+                                        {"Registrarse"}
+                                    </Typography>
                                 </Link>
                             </Grid>
                         </Grid>

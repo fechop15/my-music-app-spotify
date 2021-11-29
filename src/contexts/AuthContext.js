@@ -31,8 +31,9 @@ export const AuthProvider = (props) => {
     }
 
     const logout = async () =>{
+        localStorage.removeItem('TOKEN_SPOTIFY')
+        localStorage.removeItem('stateLogin')
         await authFirebase.signOut()
-        localStorage.setItem("stateLogin", null);
     }
 
     const value = {
