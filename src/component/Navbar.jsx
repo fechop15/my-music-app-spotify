@@ -1,5 +1,17 @@
 import React, {useState} from 'react';
-import {Alert, AppBar, Avatar, Box, Button, IconButton, Toolbar, Typography} from "@mui/material";
+import {
+    Alert,
+    AppBar,
+    Avatar,
+    Box,
+    Button, CardMedia,
+    IconButton,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Tooltip,
+    Typography
+} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -12,6 +24,8 @@ import Drawer from "@mui/material/Drawer";
 import PropTypes from "prop-types";
 import {NavLink, useHistory} from "react-router-dom";
 import {useAuth} from "../contexts/AuthContext";
+import {useSelector} from "react-redux";
+import {getUser} from "../reducers/UserReducer";
 
 const drawerWidth = 240;
 
@@ -37,8 +51,13 @@ const Navbar = (props) => {
 
     const drawer = (
         <div>
-            <Toolbar>
-                <Typography variant="h6" component="div">
+            <Toolbar component={NavLink} to={"/index"} sx={{textDecoration:"none"}} activeClassName="none">
+                <CardMedia sx={{width:"40px",m:"auto"}}
+                           component="img"
+                           image="./spotify.png"
+                           alt="spotify"
+                />
+                <Typography variant="h6" component="div" color={"black"}>
                     My Music App
                 </Typography>
             </Toolbar>
@@ -70,6 +89,15 @@ const Navbar = (props) => {
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+    const {currentUser} = useAuth();
+    const user=useSelector(getUser)
 
     return (
         <Box sx={{display: 'flex'}}>
@@ -97,9 +125,35 @@ const Navbar = (props) => {
                             My Music App
                         </Typography>
                     </Box>
-                    <Button color="inherit">
-                        <Avatar>N</Avatar>
-                    </Button>
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt={currentUser?.email?.toUpperCase()} src={user?.display_name} />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px'}}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+
+                            <MenuItem  onClick={handleLogout}>
+                                <Typography textAlign="center">Salir</Typography>
+                            </MenuItem>
+
+                        </Menu>
+                    </Box>
                 </Toolbar>
             </AppBar>
 
