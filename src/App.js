@@ -4,10 +4,11 @@ import {AuthProvider} from "./contexts/AuthContext";
 import {getTokenFromURL} from "./api/spotify";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {SET_USER} from "./reducers/UserReducer";
 import SpotifyWebApi from "spotify-web-api-js";
+import {SET_USER} from "./reducers/UserReducer";
 import {getToken, SET_TOKEN} from "./reducers/TokenReducer";
 import {SET_PLAYLIST} from "./reducers/PlayListReducer";
+import {SET_FAVORITELIST} from "./reducers/FavoriteListReducer";
 
 // const init = () => {
 //   return JSON.parse(localStorage.getItem('log'))||{log:false}
@@ -16,7 +17,7 @@ const spotify=new SpotifyWebApi();
 export default function Types() {
     const token=useSelector(getToken)
     const token_spotify=localStorage.getItem('TOKEN_SPOTIFY')
-    const dispatch =useDispatch();
+    const dispatch=useDispatch();
 
     function loadDataSpotify(__token) {
         console.log("token load "+__token)
@@ -26,24 +27,15 @@ export default function Types() {
                 dispatch(SET_USER(user));
             },
             function (err) {
-                console.log("error token");
                 localStorage.removeItem('TOKEN_SPOTIFY')
             }
         );
 
-        spotify.getMySavedTracks().then(
-            function (data) {
-                console.log("getMySavedTracks")
-                console.log(data)
-                console.log("end getMySavedTracks")
-            },function (err) {
-                console.log("error token");
-                localStorage.removeItem('TOKEN_SPOTIFY')
-            }
-        );
+        spotify.getMySavedTracks().then(favoriteList=>dispatch(SET_FAVORITELIST(favoriteList)));
+
         spotify.getPlaylist('37i9dQZF1DX0BcQWzuB7ZO').then(playList=>dispatch(SET_PLAYLIST(playList)))
+
         dispatch(SET_TOKEN(__token))
-        console.log("token => "+__token);
     }
 
     useEffect(() => {

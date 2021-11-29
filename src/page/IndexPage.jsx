@@ -22,7 +22,6 @@ function IndexPage(props) {
             </Box>
             <PlayList/>
 
-
         </Box>
     );
 }
