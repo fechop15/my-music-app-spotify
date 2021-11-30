@@ -10,53 +10,58 @@ import {
 import {useSelector} from "react-redux";
 import {getPlayList} from "../reducers/PlayListReducer";
 import Track from "./Track";
+import {getUser} from "../reducers/UserReducer";
 const Img = styled('img')({
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
 });
-function PlayList(props) {
-    const playList = useSelector(getPlayList)
+function PlayList({playList,name=null,image='',owner=null,favorite=false}) {
+    const imagePlayList=image?image:playList.images[0].url
+    const nameplayList=name??playList.name
+    const ownerPLayList=owner??playList.owner.display_name
+    const totalPLayList=playList.total??playList.tracks?.total
+    const tracksPLayList=playList.items??playList.tracks.items
+
     return (
         <>
             {!playList ?
                 <Skeleton variant="rectangular" height={400}/>
                 :
-                <Zoom in={true} style={{transitionDelay: '500ms'}}>
                     <Box>
                         <Grid container spacing={2}>
                             <Grid item xs={4}>
                                 <Box sx={{width: "100%"}}>
-                                    <Img src={playList.images[0].url} alt={playList.name}/>
+                                    <Img src={imagePlayList} alt={nameplayList}/>
                                 </Box>
                             </Grid>
                             <Grid item xs={8} sx={{margin:"auto"}}>
                                 <Box>
                                     <Typography variant="h7" className="uppercase text-bold">
-                                        {playList.type}
+                                        {playList.type??'playlist'}
                                     </Typography>
                                     <Typography variant="h2" className="text-bold">
-                                        {playList.name}
+                                        {nameplayList}
                                     </Typography>
                                     <Typography>
-                                        {playList.owner.display_name}
+                                        {ownerPLayList}
                                     </Typography>
                                     <Typography variant="caption" color="text.secondary">
-                                        {playList.tracks.total} canciones, {playList.followers.total} Seguidores
+                                        {totalPLayList+' canciones'}
                                     </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
                                 <Box sx={{width: "100%"}}>
-                                    {playList.tracks.items.map((value, index) =>(
-                                        <Track song={value} index={index+1} key={index}></Track>
+                                    {tracksPLayList.map((value, index) =>(
+                                        <Track song={value} index={index+1} key={index} like={favorite}></Track>
                                     ))}
                                 </Box>
                             </Grid>
                         </Grid>
                     </Box>
-                </Zoom>}
+                }
         </>
 
     );

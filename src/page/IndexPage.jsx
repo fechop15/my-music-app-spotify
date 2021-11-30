@@ -4,12 +4,14 @@ import {useAuth} from "../contexts/AuthContext";
 import {useSelector} from "react-redux";
 import {getUser} from "../reducers/UserReducer";
 import PlayList from "../component/PlayList";
+import {getPlayList} from "../reducers/PlayListReducer";
 
 function IndexPage(props) {
     console.log("index")
 
     const {currentUser} = useAuth();
     const user=useSelector(getUser)
+    const playList = useSelector(getPlayList)
     return (
         <Box>
             <Box>
@@ -20,7 +22,7 @@ function IndexPage(props) {
                 {/*</Zoom>*/}
                 {/*}*/}
             </Box>
-            <PlayList/>
+            <PlayList playList={playList}/>
 
         </Box>
     );
