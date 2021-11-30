@@ -10,16 +10,9 @@ function IndexPage(props) {
     const playList = useSelector(getPlayList)
     return (
         <Box>
-            <Box>
-                {/*<p>Bienvenido {currentUser.email}</p>*/}
-                {/*{user &&*/}
-                {/*<Zoom in={true} style={{ transitionDelay:'500ms' }}>*/}
-                {/*    <p>Nombre: {user.display_name}</p>*/}
-                {/*</Zoom>*/}
-                {/*}*/}
-            </Box>
+            {playList&&
             <PlayList playList={playList}/>
-
+            }
         </Box>
     );
 }

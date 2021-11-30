@@ -6,12 +6,15 @@ import {getUser} from "../reducers/UserReducer";
 
 function FavoritePage(props) {
     const FavoriteList = useSelector(getFavoriteList)
-    const user=useSelector(getUser)
+    const user = useSelector(getUser)
 
     console.log(FavoriteList)
     return (
         <>
-            <PlayList playList={FavoriteList}  favorite={true} owner={user.display_name} image={'./favoritos.png'} name={'Canciones que te gustan' }/>
+            {FavoriteList &&
+            <PlayList playList={FavoriteList} favorite={true} owner={user.display_name} image={'./favoritos.png'}
+                      name={'Canciones que te gustan'}/>
+            }
         </>);
 }
 

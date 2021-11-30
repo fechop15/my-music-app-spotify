@@ -14,25 +14,30 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 function PlayList({playList,name=null,image=null,owner=null,favorite=false}) {
-    const imagePlayList=image??playList.images[0].url
-    const nameplayList=name??playList.name
-    const ownerPLayList=owner??playList.owner.display_name
-    const totalPLayList=playList.total??playList.tracks?.total
-    const tracksPLayList=playList.items??playList.tracks.items
+
+    const imagePlayList=image??playList?.images[0]?.url??''
+    const nameplayList=name??playList?.name??''
+    const ownerPLayList=owner??playList?.owner?.display_name??''
+    const totalPLayList=playList?.total??playList?.tracks?.total??''
+    const tracksPLayList=playList?.items??playList?.tracks?.items??''
 
     return (
         <>
             {!playList ?
+                <Box>
                 <Skeleton variant="rectangular" height={400}/>
+                <Skeleton variant="rectangular" height={100}/>
+                <Skeleton variant="rectangular" height={100}/>
+                </Box>
                 :
                     <Box>
                         <Grid container spacing={2}>
-                            <Grid item xs={4}>
+                            <Grid item xs={4} lg={2}>
                                 <Box sx={{width: "100%"}}>
                                     <Img src={imagePlayList} alt={nameplayList}/>
                                 </Box>
                             </Grid>
-                            <Grid item xs={8} sx={{margin:"auto"}}>
+                            <Grid item xs={8}  lg={10} sx={{margin:"auto"}}>
                                 <Box>
                                     <Typography variant="h7" className="uppercase text-bold">
                                         {playList.type??'playlist'}
