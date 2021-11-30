@@ -4,7 +4,7 @@ import {
     AppBar,
     Avatar,
     Box,
-    Button, CardMedia,
+    CardMedia,
     IconButton,
     Menu,
     MenuItem,

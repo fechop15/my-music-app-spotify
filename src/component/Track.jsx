@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Card, CardContent, CardMedia, Grid, IconButton, Paper, Typography} from "@mui/material";
+import {Box, CardMedia, Grid, IconButton, Paper, Typography} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {red} from "@mui/material/colors";
 

@@ -1,16 +1,12 @@
 import React from 'react';
-import {Box,Container, Zoom} from "@mui/material";
-import {useAuth} from "../contexts/AuthContext";
+import {Box} from "@mui/material";
 import {useSelector} from "react-redux";
-import {getUser} from "../reducers/UserReducer";
 import PlayList from "../component/PlayList";
 import {getPlayList} from "../reducers/PlayListReducer";
 
 function IndexPage(props) {
     console.log("index")
 
-    const {currentUser} = useAuth();
-    const user=useSelector(getUser)
     const playList = useSelector(getPlayList)
     return (
         <Box>

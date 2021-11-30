@@ -5,20 +5,16 @@ import {
     Skeleton,
     styled,
     Typography,
-    Zoom
 } from "@mui/material";
-import {useSelector} from "react-redux";
-import {getPlayList} from "../reducers/PlayListReducer";
 import Track from "./Track";
-import {getUser} from "../reducers/UserReducer";
 const Img = styled('img')({
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
 });
-function PlayList({playList,name=null,image='',owner=null,favorite=false}) {
-    const imagePlayList=image?image:playList.images[0].url
+function PlayList({playList,name=null,image=null,owner=null,favorite=false}) {
+    const imagePlayList=image??playList.images[0].url
     const nameplayList=name??playList.name
     const ownerPLayList=owner??playList.owner.display_name
     const totalPLayList=playList.total??playList.tracks?.total
