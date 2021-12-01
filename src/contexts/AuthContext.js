@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
 import {authFirebase} from '../firebase';
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import validator from "validator";
 
 const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);

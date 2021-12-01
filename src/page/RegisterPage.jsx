@@ -14,6 +14,7 @@ import {
 import {Link, useHistory} from "react-router-dom";
 import {useAuth} from "../contexts/AuthContext";
 import {AccountCircle, Lock} from "@mui/icons-material";
+import validator from 'validator'
 
 function RegisterPage(props) {
     console.log("registro")
@@ -31,20 +32,28 @@ function RegisterPage(props) {
     const [password, setPassword] = useState('');
     const handleEmail = e => setEmail(e.target.value);
     const handlePassword = e => setPassword(e.target.value);
+    console.log('Validator '+validator.isEmail(email))
 
     function validate(email, password) {
         let validateError = false;
         if (email === "") {
-            setErrorEmail({state: true, message: "Email is required"})
+            setErrorEmail({state: true, message: "El correo es requerido"})
             validateError = true;
+        }else if (!validator.isEmail(email)) {
+            validateError = true;
+            setErrorEmail({state: true, message: "Por favor, ingresa un correo válido."})
         } else {
             setErrorEmail({state: false, message: ""})
         }
+
         if (password === "") {
-            setErrorPassword({state: true, message: "Password is required"})
+            setErrorPassword({state: true, message: "La contraseña es requerida"})
+            validateError = true;
+        }if (password.length < 8) {
+            setErrorPassword({state: true, message: "La contraseña debe tener mas de 8 dígitos"})
             validateError = true;
         } else {
-            setErrorEmail({state: false, message: ""})
+            setErrorPassword({state: false, message: ""})
         }
         return validateError;
     }
@@ -61,7 +70,7 @@ function RegisterPage(props) {
             } catch (error) {
                 console.log(error);
                 setLoading(false);
-                setError('Wrong Credentials');
+                setError('Registro no valido');
                 //setTimeout(() => setError(''), 2500);
             }
         }

@@ -13,6 +13,7 @@ import {
 import {Link, useHistory} from "react-router-dom";
 import {useAuth} from "../contexts/AuthContext";
 import {AccountCircle,Lock} from "@mui/icons-material";
+import validator from "validator";
 
 function LoginPage() {
     console.log("login")
@@ -30,19 +31,27 @@ function LoginPage() {
     function validate(email, password) {
         let validateError = false;
         if (email === "") {
-            setErrorEmail({state: true, message: "Email is required"})
+            setErrorEmail({state: true, message: "El correo es requerido"})
             validateError = true;
+        }else if (!validator.isEmail(email)) {
+            validateError = true;
+            setErrorEmail({state: true, message: "Por favor, ingresa un correo válido."})
         } else {
             setErrorEmail({state: false, message: ""})
         }
+
         if (password === "") {
-            setErrorPassword({state: true, message: "Password is required"})
+            setErrorPassword({state: true, message: "La contraseña es requerida"})
+            validateError = true;
+        }if (password.length < 8) {
+            setErrorPassword({state: true, message: "La contraseña debe tener mas de 8 dígitos"})
             validateError = true;
         } else {
-            setErrorEmail({state: false, message: ""})
+            setErrorPassword({state: false, message: ""})
         }
         return validateError;
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate(email, password)) {
@@ -54,7 +63,7 @@ function LoginPage() {
             } catch (error) {
                 console.log(error);
                 setLoading(false);
-                setError('Wrong Credentials');
+                setError('Credenciales incorrectas');
                 //setTimeout(() => setError(''), 2500);
             }
         }
